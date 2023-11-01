@@ -9,8 +9,8 @@ const Home1Page = () => {
 
   return (
     <>
-      <div className="bg-white-A700 flex flex-col font-robotocondensed items-center justify-start mx-auto py-20 w-auto sm:w-full md:w-full">
-        <div className="flex flex-col md:gap-16 gap-20 md:h-auto h-full items-start md:items-start justify-between pb-40 pt-6 md:px-5 w-auto sm:w-full">
+      <div className="bg-white-A700 flex flex-col font-robotocondensed items-center justify-start mx-auto py-20 sm:py-8 w-auto sm:w-full md:w-full">
+        <div className="flex flex-col md:gap-16 gap-20  h-full items-start md:items-start justify-between pb-40 sm:pb-0 pt-6 sm:pt-0 md:px-5 w-auto sm:w-full ">
           <div className="flex flex-col gap-10 items-start justify-start w-auto sm:w-full">
             <div className="flex flex-col items-center justify-start w-[560px] sm:w-full">
               <Text
@@ -32,7 +32,7 @@ const Home1Page = () => {
               </Text>
             </div>
           </div>
-          <div className="flex flex-col font-roboto gap-10 items-start justify-start w-full">
+          <div className="flex flex-col font-roboto gap-10 sm:gap-4 items-start justify-start w-full">
             <Button
               className="common-pointer cursor-pointer flex items-center justify-center rounded w-full"
               onClick={() => navigate("/profile")}
