@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
+import responses from "pages/Responses/dummyData";
 const Responses = React.lazy(() => import("pages/Responses"));
 const Confirmation = React.lazy(() => import("pages/Confirmation"));
 const Review = React.lazy(() => import("pages/Review"));
@@ -21,7 +22,7 @@ const ProjectRoutes = () => {
           <Route path="/certificateupload" element={<CertificateUpload />} />
           <Route path="/review" element={<Review />} />
           <Route path="/confirmation" element={<Confirmation />} />
-          <Route path="/responses" element={<Responses />} />
+          <Route path="/responses" element={<Responses responses={responses} />} />
           <Route path="/dhiwise-dashboard" element={<Home />} />
         </Routes>
       </Router>

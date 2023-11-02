@@ -9,7 +9,7 @@ const ReviewPage = () => {
 
   return (
     <>
-      <div className="bg-white-A700 flex flex-col font-roboto items-center justify-start mx-auto py-20 w-auto sm:w-full md:w-full">
+      <div className="bg-white-A700 flex flex-col font-roboto items-center justify-start mx-auto py-12 md:py-8 w-auto sm:w-full md:w-full  ">
         <div className="flex flex-col gap-8 items-start justify-center pb-10 md:px-5 w-auto sm:w-full">
           <div className="flex flex-col gap-4 items-center justify-start w-[560px] sm:w-full">
             <Text
@@ -130,13 +130,16 @@ const ReviewPage = () => {
                         </Text>
                       </div>
                     </div>
-                    <div className="sm:absolute flex flex-col items-start justify-start px-2 py-1 sm:right-6 w-auto">
-                      <Img
-                        className="h-6 sm:left-[] sm:right-[] w-6"
-                        src="images/img_edit.svg"
-                        alt="edit"
-                      />
-                    </div>
+                    <div
+                    className="common-pointer sm:absolute flex flex-col items-start justify-start sm:left-[] sm:p-[] sm:pl-2 sm:pt-1 px-2 py-1 sm:right-6 sm:top-[] w-auto"
+                    onClick={() => navigate("/programmingstack")}
+                  >
+                    <Img
+                      className="h-6 w-6"
+                      src="images/img_edit.svg"
+                      alt="edit"
+                    />
+                  </div>
                   </div>
                 </div>
                 <div className="border border-black-900 border-solid flex flex-1 flex-col items-start justify-start p-6 sm:px-5 rounded w-full">
@@ -163,13 +166,16 @@ const ReviewPage = () => {
                         </Text>
                       </div>
                     </div>
-                    <div className="sm:absolute flex flex-col items-start justify-start px-2 py-1 sm:right-6 w-auto">
-                      <Img
-                        className="h-6 w-6"
-                        src="images/img_edit.svg"
-                        alt="edit"
-                      />
-                    </div>
+                    <div
+                    className="common-pointer sm:absolute flex flex-col items-start justify-start sm:left-[] sm:p-[] sm:pl-2 sm:pt-1 px-2 py-1 sm:right-6 sm:top-[] w-auto"
+                    onClick={() => navigate("/certificateupload")}
+                  >
+                    <Img
+                      className="h-6 w-6"
+                      src="images/img_edit.svg"
+                      alt="edit"
+                    />
+                  </div>
                   </div>
                 </div>
               </List>

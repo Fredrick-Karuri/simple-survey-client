@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button, Img, Input, Text } from 'components'
 import ProfileRadios from 'components/ProfileRadios'
+import SurveyHeader from 'components/SurveyHeader'
 
 const CertificateUploadPage = () => {
   const navigate = useNavigate()
@@ -11,22 +12,8 @@ const CertificateUploadPage = () => {
   return (
     <>
       <div className='bg-white-A700 flex flex-col font-robotoserif items-center justify-start mx-auto py-12 sm:py-8 w-auto sm:w-full md:w-full h-full'>
-        <div className='flex flex-col gap-12 h-[864px]  md:h-full items-center justify-between pb-10 sm:pb-0 md:px-5 w-auto sm:w-full sm:h-[76vh] md:h-[88vh]'>
-          <div className='flex flex-col gap-4 items-center justify-start w-[560px] sm:w-full'>
-            <Text
-              className='sm:text-4xl md:text-[38px] text-[40px] text-black-900 text-center w-full'
-              size='txtRobotoCondensedBold40'
-            >
-              Sky World Survey Form
-            </Text>
-            <Text
-              className='text-2xl md:text-[22px] text-black-900 text-center sm:text-xl w-full'
-              size='txtRobotoSerifRegular24'
-            >
-              Please take a minute to help us know you.
-            </Text>
-          </div>
-          {/* <div className='flex flex-col sm:gap-[auto] md:h-[Auto%] h-full items-center justify-between sm:p-[] md:p-[] pt-10 sm:pt-[] md:pt-[] w-[50vw] sm:w-full'> */}
+        <div className='flex flex-col gap-12 h-[864px]  md:h-full items-center justify-between pb-10 sm:pb-0 md:px-5 w-auto sm:w-full sm:h-[76vh] md:h-[88vh] h-[90vh]'>
+          <SurveyHeader />
           <div className='flex flex-col gap-4 items-start justify-center w-auto'>
             <Text>Upload any of your certificates.</Text>
             <div className='flex flex-col  items-center justify-center w-full'>
@@ -90,7 +77,6 @@ const CertificateUploadPage = () => {
               </Button>
             </div>
           </div>
-          {/* </div> */}
         </div>
       </div>
     </>

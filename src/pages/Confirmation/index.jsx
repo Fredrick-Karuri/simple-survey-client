@@ -10,7 +10,7 @@ const ConfirmationPage = () => {
   return (
     <>
       <div className="bg-white-A700 flex flex-col font-robotocondensed items-center justify-start mx-auto py-12 sm:py-8  w-auto sm:w-full md:w-full">
-        <div className="flex flex-col gap-12 h-[90vh] sm:h-[Autovh] md:h-[] md:items-center items-start justify-between pb-10 sm:pb-0 pt-6 md:px-5 md:w-[50vw] w-auto sm:w-screen md:h-full sm:h-[72vh] md:h-[84vh]">
+        <div className="flex flex-col gap-12 h-[90vh] sm:h-[Autovh] md:h-[] md:items-center items-start justify-between pb-8 sm:pb-0 pt-6 md:px-5 md:w-[50vw] w-auto sm:w-screen md:h-full sm:h-[72vh] md:h-[84vh] h-[84vh]">
           <div className="flex flex-col items-center justify-start w-[560px] sm:w-full">
             <Text
               className="sm:text-4xl md:text-[38px] text-[40px] text-black-900 text-center w-full"

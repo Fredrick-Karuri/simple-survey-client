@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import SurveyHeader from 'components/SurveyHeader'
 
 import { Button, Img, Input, Line, List, Text } from 'components'
 import ProfileColumntxtfour from 'components/ProfileColumntxtfour'
@@ -31,9 +32,10 @@ const ProfilePage = () => {
                       <Input
                         name='textinput'
                         placeholder='Name'
-                        className='font-roboto p-0 placeholder:text-black-900_7f text-left text-sm w-full'
+                        className='font-roboto p-0 placeholder:text-black-900_7f text-left text-sm w-full text'
                         wrapClassName='outline outline-[1px] outline-black-900 '
                         type='text'
+                        cla
                       ></Input>
                     </div>
                     <div>
@@ -151,24 +153,7 @@ const ProfilePage = () => {
     </>
   )
 
-  function SurveyHeader () {
-    return (
-      <div className='flex flex-col gap-4 items-center justify-start w-[560px] sm:w-full'>
-        <Text
-          className='sm:text-4xl md:text-[38px] text-[40px] text-black-900 text-center w-full'
-          size='txtRobotoCondensedBold40'
-        >
-          Sky World Survey Form
-        </Text>
-        <Text
-          className='text-2xl md:text-[22px] text-black-900 text-center sm:text-xl w-full'
-          size='txtRobotoSerifRegular24'
-        >
-          Please take a minute to help us know you.
-        </Text>
-      </div>
-    )
-  }
+
 }
 
 export default ProfilePage
