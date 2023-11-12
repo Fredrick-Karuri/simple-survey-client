@@ -428,77 +428,106 @@
 
 import React, { useState } from 'react'
 import { Text, Button } from 'components'
+import { useNavigate } from 'react-router-dom'
 
 function ResponsesPage ({ responses }) {
   const [openIndex, setOpenIndex] = useState(null)
+  const navigate = useNavigate()
 
   return (
-    <div className='overflow-x-auto'>
-      <div className='flex p-4'>
+    <div className='overflow-x-auto max-w-screen-lg mx-auto p-8 pl-12 pr-12 sm:p-4'>
+      <div className='flex p-4 items-center'>
         <Text
-          className='sm:text-4xl md:text-[38px] text-[40px] text-black-900  w-full'
+          className=' md:text-[38px] sm:text-xl text-3xl text-black-900  w-full'
           size='txtRobotoCondensedBold40'
         >
-          Sky World Survey Form
+          Sky World Survey Responses
         </Text>
 
         <Button
-          className='common-pointer cursor-pointer font-robotoserif min-w-[150px] outline outline-[1px] outline-light_blue-A700 text-base text-center'
+          className=' display justify-center  items-center flex common-pointer cursor-pointer font-robotoserif min-w-[150px] outline outline-[1px] outline-light_blue-A700 text-base text-center h-[50%]'
           onClick={() => navigate('/')}
           shape='square'
         >
           Back to home
         </Button>
       </div>
-      <table className='w-full divide-y divide-gray-200'>
-        <thead className='bg-gray-50'>
-          <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Description</th>
-            <th>Certificates</th>
-            <th>Date</th>
+      <table className='w-full divide-y divide-gray-200  border-2 '>
+        <thead className='bg-gray-50 h-8 '>
+          <tr className='text-center '>
+            <th className='w-1/5  text-black-900 '>Name</th>
+            <th className='w-1/5'>Gender</th>
+            <th className='w-1/5'>Description</th>
+            <th className='w-1/5'>Certificates</th>
+            <th className='w-1/5'>Date</th>
           </tr>
         </thead>
-        <tbody className='bg-white divide-y divide-gray-200'>
+        <tbody className='bg-white divide-y divide-gray-200 '>
           {responses.map((response, index) => (
             <>
               <tr
                 key={index}
                 onClick={() => setOpenIndex(index === openIndex ? null : index)}
+                className='text-center'
               >
-                <td>{response.name}</td>
-                <td>{response.gender}</td>
-                <td>{response.description}</td>
-                <td>{response.certificates}</td>
-                <td>{response.date}</td>
+                <td className='w-1/5 p-4'>
+                  {index === openIndex ? '▼' : '►'} {response.name}
+                </td>
+
+                <td className='w-1/5 p-4'>{response.gender}</td>
+                <td className='w-1/5 p-4'>
+                  {response.description.length > 50
+                    ? response.description.substring(0, 50) + '...'
+                    : response.description}
+                </td>
+                <td className='w-1/5 p-4'>{response.certificates.length}</td>
+                <td className='w-1/5'>{response.date}</td>
               </tr>
               {index === openIndex && (
-                <tr>
-                  <td colSpan={5}>
-                    <div className='p-4'>
-                      <p>
-                        <strong>Date joined:</strong> {response.dateJoined}
-                      </p>
-                      <p>
-                        <strong>Email:</strong> {response.email}
-                      </p>
-                      <p>
-                        <strong>Programming Stack:</strong>{' '}
-                        {response.programmingStack}
-                      </p>
-                      <p>
-                        <strong>Description:</strong> {response.description}
-                      </p>
-                      <p>
-                        <strong>Certificates:</strong>{' '}
-                        {response.certificates &&
-                          response.certificates.map(certificate => (
-                            <div key={certificate}>{certificate}</div>
-                          ))}
-                      </p>
+                <tr className='text-center bg-blue-100 '>
+                  <td className='w-1/5   p-8'>
+                    <div className='gap-2 flex flex-col pl-[25%]'>
+                      <div className='flex flex-col items-start  '>
+                        <div>
+                          <strong>Date joined:</strong>
+                        </div>
+                        <div>{response.dateJoined}</div>
+                      </div>
+                      <div className='flex flex-col items-start'>
+                        <div>
+                          <strong>Email:</strong>
+                        </div>
+                        <div>{response.email}</div>
+                      </div>
                     </div>
                   </td>
+                  <td className='w-1/5 p-8'>
+                    <div className='flex flex-col item-start'>
+                      <div>
+                        <strong>Programming Stack:</strong>{' '}
+                      </div>
+                      <div>{response.programmingStack}</div>
+                    </div>
+                  </td>
+                  <td className='w-1/5 p-8'>
+                    <div>
+                      <strong>Description:</strong>
+                    </div>
+                    <div>{response.description}</div>
+                  </td>
+
+                  <td className='w-1/5 p-8'>
+                    <div>
+                      <strong>Certificates:</strong>{' '}
+                    </div>
+                    <div>
+                      {response.certificates &&
+                        response.certificates.map(certificate => (
+                          <div key={certificate}>{certificate}</div>
+                        ))}
+                    </div>
+                  </td>
+                  <td className='w-1/5 p-8'>{response.date}</td>
                 </tr>
               )}
             </>
@@ -510,3 +539,4 @@ function ResponsesPage ({ responses }) {
 }
 
 export default ResponsesPage
+
