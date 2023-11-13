@@ -7,7 +7,6 @@ import SurveyHeader from 'components/SurveyHeader'
 import { Button, Img, Input, Line, List, Text } from 'components'
 import ProfileColumntxtfour from 'components/ProfileColumntxtfour'
 import ProfileRadios from 'components/ProfileRadios'
-import { div } from '12'
 
 const ProfilePage = () => {
   const navigate = useNavigate()

@@ -1,13 +1,46 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
 import { Button, Img, Input, Text } from 'components'
 import ProfileRadios from 'components/ProfileRadios'
 import SurveyHeader from 'components/SurveyHeader'
 
 const CertificateUploadPage = () => {
   const navigate = useNavigate()
+  const [file, setFile] = useState(null)
+  const [fileUploadQuestion, setFileUploadQuestion] = useState(null)
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    axios
+      .get('http://localhost:8000/api/questions', { cancelToken: source.token })
+      .then(res => {
+        const question = res.data.find(
+          question => question.name === 'certificates'
+        )
+        setFileUploadQuestion(question)
+      })
+      .catch(error => {
+        if (axios.isCancel(error)) {
+          console.log('Request canceled', error.message);
+        } else {
+          console.error('There was an error', error)
+        }
+      })
+
+    return () => {
+      source.cancel('Operation canceled by the user.');
+    };
+  }, [])
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0])
+  }
+
+  if (!fileUploadQuestion) {
+    return null // Or a loading spinner
+  }
 
   return (
     <>
@@ -15,7 +48,10 @@ const CertificateUploadPage = () => {
         <div className='flex flex-col gap-12 h-[864px]  md:h-full items-center justify-between pb-10 sm:pb-0 md:px-5 w-auto sm:w-full sm:h-[76vh] md:h-[88vh] h-[90vh]'>
           <SurveyHeader />
           <div className='flex flex-col gap-4 items-start justify-center w-auto'>
-            <Text>Upload any of your certificates.</Text>
+            <Text>
+              {/* Upload any of your certificates. */}
+              {fileUploadQuestion.text}
+            </Text>
             <div className='flex flex-col  items-center justify-center w-full'>
               <Input
                 name='frameone'
@@ -24,6 +60,7 @@ const CertificateUploadPage = () => {
                 wrapClassName='bg-gray-200 flex rounded w-full'
                 type='file'
                 accept='*'
+                onChange={handleFileChange}
               ></Input>
               <Text
                 className='italic text-black-900 text-sm w-auto'

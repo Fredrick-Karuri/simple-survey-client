@@ -10,6 +10,7 @@ const CertificateUpload = React.lazy(() => import("pages/CertificateUpload"));
 const ProgrammingStack = React.lazy(() => import("pages/ProgrammingStack"));
 const Profile = React.lazy(() => import("pages/Profile"));
 const Home1 = React.lazy(() => import("pages/Home1"));
+const SurveyForm = React.lazy(() => import("pages/SurveyForm"));
 const ProjectRoutes = () => {
   return (
     <React.Suspense fallback={<>Loading...</>}>
@@ -18,6 +19,7 @@ const ProjectRoutes = () => {
           <Route path="/" element={<Home1 />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/surveyform" element={<SurveyForm />} />
           <Route path="/programmingstack" element={<ProgrammingStack />} />
           <Route path="/certificateupload" element={<CertificateUpload />} />
           <Route path="/review" element={<Review />} />

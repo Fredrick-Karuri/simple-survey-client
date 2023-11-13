@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import SurveyHeader from 'components/SurveyHeader'
 import { Button, Img, Text } from 'components'
@@ -72,53 +72,63 @@ const ProgrammingStackPage = () => {
 
 export default ProgrammingStackPage
 function ProgrammingStackSelection () {
-  const [selectedLanguages, setSelectedLanguages] = useState({
-    JavaScript: false,
-    Python: false,
-    CSharp: false,
-    Ruby: false,
-    AngularJS: false,
-    ReactJS: false,
-    VueJS: false,
-    MYSQL: false,
-    Rust: false,
-    SQL: false,
-    GO: false,
-    CSS: false
-  })
+  const [selectedLanguages, setSelectedLanguages] = useState({})
+  const [programmingStackQuestion, setProgrammingStackQuestion] = useState(null)
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/api/questions')
+      .then(res => {
+        const question = res.data.find(
+          question => question.name === 'programming_stack'
+        )
+        setProgrammingStackQuestion(question)
+        const initialSelectedLanguages = {}
+        question.choices.forEach(choice => {
+          initialSelectedLanguages[choice.text] = false
+        })
+        setSelectedLanguages(initialSelectedLanguages)
+      })
+      .catch(error => {
+        console.error('there was an error!', error)
+      })
+  }, [])
   const handleChange = event => {
     setSelectedLanguages({
       ...selectedLanguages,
       [event.target.name]: event.target.checked
     })
   }
+  if (!programmingStackQuestion) {
+    return null
+  }
 
   return (
     <div className=' mr-auto mt-auto text-black-900 text-lg w-auto z-[1]  '>
       <span className='text-black-900 font-robotoserif text-left font-normal '>
-        What programming stack are you familiar with?
+        {programmingStackQuestion.text}
       </span>
       <span className='text-black-900 font-roboto text-left text-base font-normal italic'>
-        (Check all that apply)
+        ({programmingStackQuestion.description})
       </span>
       <form className='mb-4 mt-4'>
-        {Object.keys(selectedLanguages).map(language => (
-          <div key={language} className='mb-4'>
+        {programmingStackQuestion.choices.map(choice => (
+          <div key={choice.id} className='mb-4'>
             <input
               type='checkbox'
-              id={language}
-              name={language}
-              checked={selectedLanguages[language]}
+              id={choice.id}
+              name={choice.text}
+              checked={selectedLanguages[choice.text]}
               onChange={handleChange}
               className='mr-2 border-blue-300 p-2.5'
             />
-            <label htmlFor={language}>{language}</label>
+            <label htmlFor={choice.id}>{choice.text}</label>
           </div>
         ))}
       </form>
     </div>
   )
 }
+
 
 // return (
 //   <div className='flex flex-col gap-4 h-[595px] md:h-auto items-start justify-center w-auto sm:w-full'>
