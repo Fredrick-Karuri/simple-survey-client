@@ -35,7 +35,7 @@ const Home1Page = () => {
           <div className="flex flex-col font-roboto gap-10 sm:gap-4 items-start justify-start w-full">
             <Button
               className="common-pointer cursor-pointer flex items-center justify-center rounded w-full"
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate("/surveyform")}
               rightIcon={
                 <Img
                   className="h-10 ml-[35px]"
@@ -53,7 +53,7 @@ const Home1Page = () => {
             </Button>
             <Button
               className="common-pointer cursor-pointer flex items-center justify-center rounded w-full"
-              onClick={() => navigate("/responses")}
+              onClick={() => navigate("/surveyresponses")}
               rightIcon={
                 <Img
                   className="h-10 ml-[35px]"

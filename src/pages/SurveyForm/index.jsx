@@ -23,12 +23,7 @@ const SurveyForm = () => {
       })
   }, [])
 
-  // const handleInputChange = event => {
-  //   setResponses({
-  //     ...responses,
-  //     [questions[currentQuestionIndex].name]: event.target.value
-  //   })
-  // }
+
   const handleInputChange = (event, questionName, choiceText) => {
     if (event.target.type === 'checkbox') {
       setResponses(prevResponses => ({
@@ -41,7 +36,7 @@ const SurveyForm = () => {
     } else if (event.target.type === 'file') {
       setResponses(prevResponses => ({
         ...prevResponses,
-        [questionName]: event.target.files[0]
+        [questionName]: event.target.files
       }))
     } else {
       setResponses(prevResponses => ({
@@ -190,6 +185,7 @@ const SurveyForm = () => {
           // onChange={handleInputChange}
           onChange={event => handleInputChange(event, question.name)}
           accept='*'
+          multiple
           wrapClassName='bg-gray-200 flex rounded w-full'
         />
       )
