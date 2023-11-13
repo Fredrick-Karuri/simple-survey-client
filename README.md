@@ -43,6 +43,19 @@ You can install any dependencies (for example, React Router) with `npm`:
 Alternatively you may use yarn:
 `yarn add react-router`
 
+## Deployment Instructions
+
+1. **Push Your Changes**: Make sure all your changes are committed and pushed to your GitHub repository.
+
+2. **Create a Vercel Account**: If you haven't already, create a Vercel account and install the Vercel CLI[^3^][5].
+
+3. **Import Your Project**: Import your project into Vercel using the `vercel` command in your terminal[^3^][5]. Vercel will automatically detect that you're using React[^3^][5].
+
+4. **Deploy**: Vercel will build and deploy your React application, providing you with a deployment URL upon completion[^3^][5].
+
+5. **Check Your Application**: Visit the deployment URL to ensure your React application runs correctly on Vercel[^3^][5].
+
+
 ## Contribution Guidelines
 Contributions are open! If you have any ideas or suggestions, feel free to make a pull request or open an issue.
 
