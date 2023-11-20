@@ -4,12 +4,17 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Img, Input, Text } from 'components'
 import ProfileRadios from 'components/ProfileRadios'
 import SurveyHeader from 'components/SurveyHeader'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const SurveyForm = () => {
   const navigate = useNavigate()
   const [questions, setQuestions] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [responses, setResponses] = useState({})
+
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     axios
@@ -23,7 +28,6 @@ const SurveyForm = () => {
       })
   }, [])
 
-
   const handleInputChange = (event, questionName, choiceText) => {
     if (event.target.type === 'checkbox') {
       setResponses(prevResponses => ({
@@ -33,10 +37,18 @@ const SurveyForm = () => {
           [choiceText]: event.target.checked
         }
       }))
-    } else if (event.target.type === 'file') {
+    }
+    // else if (event.target.type === 'file') {
+    //   setResponses(prevResponses => ({
+    //     ...prevResponses,
+    //     [questionName]: event.target.files
+    //   }))
+    // }
+    else if (event.target.type === 'file') {
+      const files = Array.from(event.target.files)
       setResponses(prevResponses => ({
         ...prevResponses,
-        [questionName]: event.target.files
+        [questionName]: files
       }))
     } else {
       setResponses(prevResponses => ({
@@ -65,15 +77,27 @@ const SurveyForm = () => {
     console.log(formData)
     axios
       .put('http://localhost:8000/api/questions/responses', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        // headers: {
+        //   'Content-Type': 'multipart/form-data'
+        // }
       })
       .then(response => {
-        console.log('Responses submitted successfully!')
+        // console.log('Responses submitted successfully!')
+        // setMessage('Responses submitted Successfully!')
+        // setError(false)
+        toast.success('Responses submitted successfully!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000
+        })
       })
       .catch(error => {
-        console.error('There was an error!', error)
+        // console.error('There was an error!', error)
+        // setMessage('There was an error!')
+        // setError(true)
+        toast.error('There was an error!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000
+        })
       })
   }
 
@@ -205,8 +229,18 @@ const SurveyForm = () => {
   if (currentQuestionIndex === questions.length) {
     preview = (
       <div className='flex flex-col gap-3'>
-        <div>
-          <Text>Preview</Text>
+        <div className='flex justify-between items-center w-full '>
+          <div>
+            <Text className='text-2xl'>Preview</Text>
+          </div>
+          <Button
+            onClick={() => navigate('/')}
+            shape='round'
+            size='sm'
+            className=' rounded'
+          >
+            Back to home
+          </Button>
         </div>
         {Object.entries(responses).map(([questionName, response], index) => (
           <div
@@ -215,14 +249,20 @@ const SurveyForm = () => {
           >
             <h3 className='my-[4px]'>{questionName}</h3>
             <p>
-              {response instanceof File
-                ? response.name
-                : typeof response === 'object'
-                ? Object.keys(response)
-                    .filter(key => response[key])
-                    .join(', ')
-                : response}
-            </p>
+            {Array.isArray(response)
+              ? response.map((file, fileIndex) => (
+                  <div key={fileIndex}>
+                    <a href={`/api/questions/responses/uploads/${file.name}`}>
+                      Download {file.name}
+                    </a>
+                  </div>
+                ))
+              : typeof response === 'object'
+              ? Object.keys(response)
+                  .filter(key => response[key])
+                  .join(', ')
+              : response}
+          </p>
           </div>
         ))}
       </div>
@@ -256,6 +296,11 @@ const SurveyForm = () => {
               </Button>
             )}
             {nextButton}
+            <ToastContainer />
+
+            {/* {message && (
+              <div style={{ color: error ? 'red' : 'green' }}>{message}</div>
+            )} */}
           </div>
         </div>
       </div>
@@ -264,84 +309,3 @@ const SurveyForm = () => {
 }
 
 export default SurveyForm
-
-// ) : (
-//   <Button
-//     className='common-pointer cursor-pointer flex-1 outline outline-[1px] outline-light_blue-A700 text-base text-center w-full'
-//     onClick={handleSubmit}
-//     shape='round'
-//     size='sm'
-//   >
-//     Submit
-//   </Button>
-// const handleSubmit = () => {
-//   const formData = new FormData();
-//   Object.keys(responses).forEach(key => {
-//     formData.append(key, responses[key]);
-//   });
-
-//   axios.put('http://localhost:8000/api/questions/responses', formData, {
-//     headers: {
-//       'Content-Type': 'multipart/form-data'
-//     }
-//   })
-//   .then(response => {
-//     console.log('Responses submitted successfully!');
-//     // You can navigate to another page or show a success message here
-//   })
-//   .catch(error => {
-//     console.error('There was an error!', error);
-//     // You can show an error message here
-//   });
-// };
-
-// const handleSubmit = () => {
-//   axios.put('http://localhost:8000/api/questions/responses', responses)
-//     .then(response => {
-//       console.log('Responses submitted successfully!');
-//     })
-//     .catch(error => {
-//       console.error('There was an error!', error);
-//     });
-// };
-
-// const handleSubmit = () => {
-//   const formData = new FormData()
-//   Object.entries(responses).forEach(([questionName, response]) => {
-//     if (
-//       typeof response === 'object' &&
-//       response !== null &&
-//       !(response instanceof File)
-//     ) {
-//       response = Object.entries(response)
-//         .filter(([choiceText, checked]) => checked)
-//         .map(([choiceText]) => choiceText)
-//         .join(', ')
-//     }
-//     formData.append(questionName, response)
-//   })
-
-//   axios
-//     .put('http://localhost:8000/api/questions/responses', formData, {
-
-//     })
-//     .then(response => {
-//       console.log('Responses submitted successfully!')
-//       alert('Responses submitted successfully!')
-//     })
-//     .catch(error => {
-//       console.error('There was an error!', error)
-//       alert('There was an error submitting your responses. Please try again.')
-//     })
-// }
-
-// const handleSubmit = () => {
-//   axios
-//     .put('http://localhost:8000/api/questions/responses', responses)
-//     .then(response => {
-//       console.log('Responses submitted successfully!')
-//     })
-//     .catch(error => {
-//       console.error('There was an error!', error)
-//     })
-// }
